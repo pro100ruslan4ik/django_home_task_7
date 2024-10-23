@@ -28,6 +28,9 @@ class UserCreateView(CreateView):
     template_name = 'user_form.html'
     fields = ['first_name', 'last_name', 'email', 'avatar', 'date_of_birth']
 
+    def get_success_url(self):
+        return reverse_lazy('user_detail', kwargs={'pk': self.object.pk})
+
 
 class UserUpdateView(UpdateView):
     model = User

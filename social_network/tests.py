@@ -45,3 +45,15 @@ class SocialNetworkTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertGreater(old_user_count, models.User.objects.count())
         # print(old_user_count, models.User.objects.count())
+
+    def test_create_user(self):
+        url = reverse('user_create')
+        old_user_count = models.User.objects.count()
+        response = self.client.post(url, {
+            'first_name': 'new_first_name',
+            'last_name': 'new_last_name',
+            'email': 'new_email@email.com',
+            'date_of_birth': '2000-01-01'
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertGreater(models.User.objects.count(), old_user_count)
